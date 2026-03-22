@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block title %}Application Status{% endblock %} 
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Application Status</h2>
+
+    <div class="card border-info mb-4">
+        <div class="card-header bg-success text-white">
+            <h4>Application Submitted!</h4>
+        </div>
+        <div class="card-body">
+            <p>Your application for the **{{ job.title }}** position has been successfully recorded.</p>
+            <p>We have received your resume file: <code>{{ app_data.resume_filename }}</code></p>
+            <p class="text-muted">Submitted on: {{ app_data.application_date.strftime('%Y-%m-%d %H:%M') }}</p>
+
+            {% if user.role == 'employer' %}
+                <hr>
+                <h5>Applicant: {{ app_data.applicant.username }}</h5>
+            {% endif %}
+
+            <hr>
+            <p>Current Review Status: **{{ app_data.review_text }}**</p>
+        </div>
+    </div>
+
+    <a href="{{ url_for('views.home') }}" class="btn btn-secondary mt-4">Back to Jobs</a>
+</div>
+{% endblock %}

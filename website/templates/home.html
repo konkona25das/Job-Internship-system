@@ -1,0 +1,42 @@
+{% extends 'base.html'%} 
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Welcome, {{ user.name }}!</h1>
+
+    <form class="mb-4" method="GET" action="{{ url_for('views.home') }}">
+        <div class="input-group">
+            <input type="text" class="form-control" name="search" placeholder="Search by job title, location, or keyword..." value="{{ search_term if search_term }}">
+            <button class="btn btn-info" type="submit">Search Jobs</button>
+            {% if user.role == 'employer' %}
+            <a href="{{ url_for('views.post_job') }}" class="btn btn-primary ml-2">Post New Job</a>
+            {% endif %}
+        </div>
+    </form>
+    
+    <hr>
+    <h3>Available Vacant Positions</h3>
+
+    <div class="row">
+        {% for job in jobs %}
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">{{ job.title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Posted by: {{ job.employer.username }} | {{ job.location }}</h6>
+                    <p class="card-text">{{ job.description[:150] }}...</p>
+                    <p class="card-text"><small class="text-secondary">**Required Skills:** {{ job.required_skills }}</small></p>
+                    <p class="card-text"><small class="text-muted">Posted on: {{ job.posted_date.strftime('%Y-%m-%d') }}</small></p>
+
+                    {% if user.role == 'seeker' %}
+                        <a href="{{ url_for('views.apply_job', job_id=job.id) }}" class="btn btn-success btn-sm mt-2">Apply Now</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p class="text-center w-100">No jobs found matching your criteria.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %} {% block title %}Post Job{% endblock %} {% block content %}
+<div class="container mt-4">
+    <h3 align="center">Post a New Vacant Position</h3>
+    <form method="POST">
+        <div class="form-group">
+            <label for="title">Job Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" class="form-control" id="location" name="location" required>
+        </div>
+        <div class="form-group">
+            <label for="required_skills">Required Skills (Comma-separated, e.g., Python, Flask, SQL)</label>
+            <input type="text" class="form-control" id="required_skills" name="required_skills" placeholder="Python, SQL, Django, AWS" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Job Description</label>
+            <textarea class="form-control" id="description" name="description" rows="6" required></textarea>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Post Job</button>
+        <a href="{{ url_for('views.home') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

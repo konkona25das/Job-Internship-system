@@ -1,0 +1,40 @@
+{% extends "base.html" %} 
+{% block title %}General Applications{% endblock %} 
+{% block content %}
+<div class="container mt-4">
+    <h2>Unsolicited Applications</h2>
+    <p class="text-muted">A list of all resumes submitted by seekers not tied to a specific job post.</p>
+    <hr>
+
+    {% if applications %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Applicant</th>
+                    <th>Date Submitted</th>
+                    <th>Resume File</th>
+                    <th>Cover Letter Snippet</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in applications %}
+                <tr>
+                    <td>{{ app.id }}</td>
+                    <td>{{ app.applicant.name }} ({{ app.applicant.username }})</td> 
+                    <td>{{ app.application_date.strftime('%Y-%m-%d') }}</td>
+                    <td><a href="{{url_for('views.download_general_resume', filename=app.resume_filename) }}" target="_blank"><code>{{ app.resume_filename }}</code>
+                    </a></td>
+                    <td>{{ app.cover_letter[:50] }}...</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info">No general applications have been submitted yet.</div>
+    {% endif %}
+
+    <a href="{{ url_for('views.home') }}" class="btn btn-secondary mt-4">Back to Dashboard</a>
+</a>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %} 
+{% block title %}General Application{% endblock %} 
+{% block content %}
+<div class="container mt-4">
+    <h2>Submit a General Application</h2>
+    <p class="text-muted">Use this form to send your resume directly to our recruiters without applying to a specific job post.</p>
+    <hr>
+
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="resume" class="form-label">Upload Resume (PDF or DOCX)</label>
+            <input type="file" class="form-control-file" id="resume" name="resume" accept=".pdf,.docx" required>
+            <small class="form-text text-muted">Only PDF and DOCX files are accepted.</small>
+        </div>
+        <div class="form-group mt-3">
+            <label for="cover_letter">Cover Letter / Note to Employer (Optional)</label>
+            <textarea class="form-control" id="cover_letter" name="cover_letter" rows="5" placeholder="Tell us why you're interested in working with us..."></textarea>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Submit General Application</button>
+    </form>
+</div>
+{% endblock %}
